@@ -41,3 +41,5 @@ Route::get('/admin/barang/stok', [BarangController::class, 'allStok'])->name('ba
 // DEFAULT REDIRECT /admin
 // ==========================
 Route::redirect('/admin', '/dashboard/admin')->name('dashboard');
+Route::delete('/admin/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+Route::get('/admin/barang/export/pdf', [BarangController::class, 'exportPDF'])->name('barang.export.pdf');

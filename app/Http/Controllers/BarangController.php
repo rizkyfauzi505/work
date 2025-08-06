@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use Carbon\Carbon;
 
 class BarangController extends Controller
 {
-    // ✅ Form Tambah Barang
+    /**
+     * ✅ Tampilkan Form Tambah Barang
+     */
     public function create()
     {
         return view('dashboard.barang.create');
     }
 
-    // ✅ Simpan Barang ke Database
+    /**
+     * ✅ Simpan Barang ke Database
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -35,23 +40,63 @@ class BarangController extends Controller
             'stok' => $request->stok,
         ]);
 
-        return redirect()->route('barang.baru')->with('success', 'Data barang berhasil ditambahkan!');
+        return redirect()->route('barang.create')->with('success', 'Barang berhasil ditambahkan!');
     }
 
-    // ✅ Barang Baru (30 Hari Terakhir)
+    /**
+     * ✅ Tampilkan Barang Baru (30 Hari Terakhir)
+     */
     public function barangBaru()
-    {
-        $tanggalBatas = Carbon::now()->subDays(30);
-        $barang = Barang::where('tanggal_pembelian', '>=', $tanggalBatas)->get();
+{
+    $tanggalBatas = \Carbon\Carbon::now()->subDays(7);
 
-        return view('dashboard.barang.baru', compact('barang'));
-    }
+    $barang = Barang::where('tanggal_pembelian', '>=', $tanggalBatas)
+                    ->orderBy('tanggal_pembelian', 'desc')
+                    ->get();
 
-    // ✅ Semua Stok Barang
+    return view('dashboard.barang.baru', compact('barang'));
+}
+
+
+    /**
+     * ✅ Tampilkan Semua Stok Barang
+     */
     public function allStok()
     {
         $barang = Barang::all();
 
         return view('dashboard.barang.stok', compact('barang'));
     }
+
+   public function destroy($id)
+{
+    $barang = Barang::findOrFail($id);
+    $barang->delete();
+
+    return redirect()->route('barang.stok')->with('success', 'Barang berhasil dihapus!');
+}
+
+public function exportPDF()
+{
+    $barang = Barang::all();
+    $pdf = Pdf::loadView('dashboard.barang.laporan', compact('barang'));
+    return $pdf->download('laporan-barang.pdf');
+}
+
+public function allStok(Request $request)
+{
+    $query = Barang::query();
+
+    if ($request->has('search')) {
+        $search = $request->search;
+        $query->where('nama_barang', 'like', "%$search%");
+    }
+
+    $barang = $query->get();
+
+    return view('dashboard.barang.stok', compact('barang'));
+}
+
+
+
 }

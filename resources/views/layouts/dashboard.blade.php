@@ -58,10 +58,11 @@
     <i class="fas fa-chevron-down submenu-icon"></i>
   </a>
   <div class="submenu">
-    <a href="{{ route('guru.create') }}">Tambah Guru</a>
-    <a href="{{ route('guru.index') }}">Daftar Guru</a>
+    <a href="{{ route('guru.create') }}" class="{{ request()->routeIs('guru.create') ? 'active' : '' }}">Tambah Guru</a>
+    <a href="{{ route('guru.index') }}" class="{{ request()->routeIs('guru.index') ? 'active' : '' }}">Daftar Guru</a>
   </div>
 </div>
+
 
 
 

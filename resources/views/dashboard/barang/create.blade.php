@@ -7,7 +7,7 @@
 </div>
 
 <div class="form-wrapper">
-  <form class="card-form" action="{{ route('barang.store') }}" method="POST">
+  <form id="form-barang" class="card-form" action="{{ route('barang.store') }}" method="POST">
     @csrf
 
     <div class="input-group">
@@ -40,7 +40,44 @@
       <input type="number" name="stok" required>
     </div>
 
-    <button type="submit" class="btn-simpan">Simpan</button>
+    <button type="button" id="btn-simpan" class="btn-simpan">Simpan</button>
   </form>
 </div>
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Konfirmasi sebelum simpan
+  document.getElementById('btn-simpan').addEventListener('click', function(e) {
+    Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: "Anda akan menyimpan data barang baru!",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, Simpan!',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById('form-barang').submit();
+      }
+    });
+  });
+</script>
+
+<!-- Notifikasi sukses -->
+@if(session('success'))
+  <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Berhasil!',
+      text: '{{ session("success") }}',
+      showConfirmButton: false,
+      timer: 2000
+    });
+  </script>
+@endif
+
 @endsection

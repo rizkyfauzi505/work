@@ -67,9 +67,12 @@
       });
     });
   });
+  </script>
 
-  // ✅ Notifikasi jika berhasil dihapus
+
+
   @if(session('success'))
+  <script>
     Swal.fire({
       icon: 'success',
       title: 'Berhasil!',
@@ -77,7 +80,8 @@
       showConfirmButton: false,
       timer: 2000
     });
+</script>    
   @endif
-</script>
+
 
 @endsection

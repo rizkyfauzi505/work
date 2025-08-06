@@ -50,7 +50,7 @@
 
       <div class="input-group">
         <select name="role" id="role" required onchange="toggleNipField()">
-          <option value="">-- Pilih Role --</option>
+          
           <option value="admin">Admin</option>
           <option value="guru">Guru</option>
         </select>
