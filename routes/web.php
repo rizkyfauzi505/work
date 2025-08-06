@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\BarangController;
+
+// ==========================
+// AUTH
+// ==========================
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// ==========================
+// DASHBOARD
+// ==========================
+Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
+Route::get('/dashboard/guru', [DashboardController::class, 'guru'])->name('dashboard.guru');
+
+// ==========================
+// GURU MANAGEMENT
+// ==========================
+Route::get('/admin/guru', [GuruController::class, 'index'])->name('guru.index');
+Route::get('/admin/guru/tambah', [GuruController::class, 'create'])->name('guru.create');
+Route::post('/admin/guru', [GuruController::class, 'store'])->name('guru.store');
+Route::delete('/guru/{id}', [GuruController::class, 'destroy'])->name('guru.destroy');
+
+// ==========================
+// BARANG MANAGEMENT
+// ==========================
+Route::get('/admin/barang/tambah', [BarangController::class, 'create'])->name('barang.create');
+Route::post('/admin/barang', [BarangController::class, 'store'])->name('barang.store');
+Route::get('/admin/barang/baru', [BarangController::class, 'barangBaru'])->name('barang.baru');
+Route::get('/admin/barang/stok', [BarangController::class, 'allStok'])->name('barang.stok');
+
+// ==========================
+// DEFAULT REDIRECT /admin
+// ==========================
+Route::redirect('/admin', '/dashboard/admin')->name('dashboard');

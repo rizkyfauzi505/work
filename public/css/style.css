@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #f2f2f2;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-box {
+  background: rgb(77, 97, 117);
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 320px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 5px;
+  font-size: 14px;
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  background: transparent;
+  color: white;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-group input::placeholder {
+  color: white;
+  opacity: 0.7;
+}
+
+.input-group select {
+  width: 100%;
+  padding: 8px 5px;
+  font-size: 14px;
+  border: 1px solid #ffffff; /* Bikin kotak */
+  background: white;         /* latar jadi putih */
+  color: black; 
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-group select option {
+  background: white;
+  color: black;
+}
+
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-bottom: 10px;
+  padding-left: 5px;
+}
+
+.small-text {
+  text-align: center;
+  color: #f2f2f2;
+  font-size: 13px;
+  margin-top: 15px;
+}
