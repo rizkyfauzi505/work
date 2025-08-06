@@ -44,59 +44,54 @@ class BarangController extends Controller
     }
 
     /**
-     * ✅ Tampilkan Barang Baru (30 Hari Terakhir)
+     * ✅ Tampilkan Barang Baru (7 Hari Terakhir)
      */
     public function barangBaru()
-{
-    $tanggalBatas = \Carbon\Carbon::now()->subDays(7);
+    {
+        $tanggalBatas = Carbon::now()->subDays(7);
 
-    $barang = Barang::where('tanggal_pembelian', '>=', $tanggalBatas)
-                    ->orderBy('tanggal_pembelian', 'desc')
-                    ->get();
+        $barang = Barang::where('tanggal_pembelian', '>=', $tanggalBatas)
+                        ->orderBy('tanggal_pembelian', 'desc')
+                        ->get();
 
-    return view('dashboard.barang.baru', compact('barang'));
-}
-
+        return view('dashboard.barang.baru', compact('barang'));
+    }
 
     /**
-     * ✅ Tampilkan Semua Stok Barang
+     * ✅ Tampilkan Semua Stok Barang + Pencarian
      */
-    public function allStok()
+    public function allStok(Request $request)
     {
-        $barang = Barang::all();
+        $query = Barang::query();
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where('nama_barang', 'like', "%$search%");
+        }
+
+        $barang = $query->get();
 
         return view('dashboard.barang.stok', compact('barang'));
     }
 
-   public function destroy($id)
-{
-    $barang = Barang::findOrFail($id);
-    $barang->delete();
+    /**
+     * ✅ Hapus Barang
+     */
+    public function destroy($id)
+    {
+        $barang = Barang::findOrFail($id);
+        $barang->delete();
 
-    return redirect()->route('barang.stok')->with('success', 'Barang berhasil dihapus!');
-}
-
-public function exportPDF()
-{
-    $barang = Barang::all();
-    $pdf = Pdf::loadView('dashboard.barang.laporan', compact('barang'));
-    return $pdf->download('laporan-barang.pdf');
-}
-
-public function allStok(Request $request)
-{
-    $query = Barang::query();
-
-    if ($request->has('search')) {
-        $search = $request->search;
-        $query->where('nama_barang', 'like', "%$search%");
+        return redirect()->route('barang.stok')->with('success', 'Barang berhasil dihapus!');
     }
 
-    $barang = $query->get();
-
-    return view('dashboard.barang.stok', compact('barang'));
-}
-
-
-
+    /**
+     * ✅ Export Laporan ke PDF
+     */
+    public function exportPDF()
+    {
+        $barang = Barang::all();
+        $pdf = Pdf::loadView('dashboard.barang.laporan', compact('barang'));
+        return $pdf->download('laporan-barang.pdf');
+    }
 }
