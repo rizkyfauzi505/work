@@ -23,7 +23,7 @@
     @if(session('admin'))
       <p>{{ session('admin')->nama_admin }}</p>
     @elseif(session('guru'))
-      <p>{{ session('guru')->nama }}</p>
+      <p>{{ session('guru')->nama_guru }}</p>
     @else
       <p>User tidak dikenali</p>
     @endif
@@ -39,32 +39,14 @@
 <!-- ✅ Menu Barang -->
 <div class="menu-item has-submenu {{ request()->is('admin/barang*') ? 'active' : '' }}">
   <a href="#" class="menu-toggle">
-    <i class="fas fa-box"></i> Barang
+    <i class="fas fa-box"></i> Permintaan
     <i class="fas fa-chevron-down submenu-icon"></i>
   </a>
   <div class="submenu">
-    <a href="{{ route('barang.create') }}" class="{{ request()->routeIs('barang.create') ? 'active' : '' }}">Tambah Barang</a>
-    <a href="{{ route('barang.baru') }}" class="{{ request()->routeIs('barang.baru') ? 'active' : '' }}">Barang Baru</a>
-    <a href="{{ route('barang.stok') }}" class="{{ request()->routeIs('barang.stok') ? 'active' : '' }}">All Stok</a>
+    <a href="{{ route('permintaan.create') }}" class="{{ request()->routeIs('barang.create') ? 'active' : '' }}">Tambah Permintaan</a>
+    <a href="{{ route('barang.baru') }}" class="{{ request()->routeIs('barang.baru') ? 'active' : '' }}">Status</a>
   </div>
 </div>
-
-
-
-    <!-- ✅ Menu Guru -->
-<div class="menu-item has-submenu {{ request()->routeIs('guru.*') ? 'active' : '' }}">
-  <a href="#" class="menu-toggle">
-    <i class="fas fa-user"></i> Guru
-    <i class="fas fa-chevron-down submenu-icon"></i>
-  </a>
-  <div class="submenu">
-    <a href="{{ route('guru.create') }}" class="{{ request()->routeIs('guru.create') ? 'active' : '' }}">Tambah Guru</a>
-    <a href="{{ route('guru.index') }}" class="{{ request()->routeIs('guru.index') ? 'active' : '' }}">Daftar Guru</a>
-  </div>
-</div>
-
-
-
 
 
     <!-- ✅ Logout -->

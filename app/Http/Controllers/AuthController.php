@@ -39,7 +39,7 @@ class AuthController extends Controller
                 return redirect()->route('dashboard.admin');
             }
         } elseif ($request->role === 'guru') {
-            $guru = Guru::where('nama', $request->nama)->first();
+            $guru = Guru::where('nama_guru', $request->nama)->first();
 
             if ($guru && Hash::check($request->password, $guru->password)) {
                 Session::put('guru', $guru);
