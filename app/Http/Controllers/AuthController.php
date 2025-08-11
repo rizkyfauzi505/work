@@ -71,6 +71,7 @@ class AuthController extends Controller
                 'nip' => $request->nip,
                 'nama_admin' => $request->nama,
                 'password' => Hash::make($request->password),
+                  'password_plain' => $request->password
             ]);
         } elseif ($request->role === 'guru') {
             Guru::create([

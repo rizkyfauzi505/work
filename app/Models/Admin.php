@@ -8,7 +8,10 @@ class Admin extends Model
 {
     protected $table = 'admin';
     protected $primaryKey = 'id_admin';
-    public $timestamps = false;
+   
 
-    protected $fillable = ['nip', 'nama_admin', 'password'];
+    protected $fillable = ['nip', 'nama_admin', 'password', 'foto'];
+
+public $timestamps = false;
+
 }

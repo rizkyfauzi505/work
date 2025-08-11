@@ -43,3 +43,8 @@ Route::get('/admin/barang/stok', [BarangController::class, 'allStok'])->name('ba
 Route::redirect('/admin', '/dashboard/admin')->name('dashboard');
 Route::delete('/admin/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
 Route::get('/admin/barang/export/pdf', [BarangController::class, 'exportPDF'])->name('barang.export.pdf');
+
+Route::post('/admin/update-profil', [App\Http\Controllers\DashboardController::class, 'updateProfil'])
+    ->name('admin.update.profil');
+
+Route::post('/admin/update-profil', [DashboardController::class, 'updateProfil'])->name('admin.updateProfil');
