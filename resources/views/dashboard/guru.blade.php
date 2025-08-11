@@ -13,9 +13,9 @@
 </head>
 <body id="body">
   <div class="sidebar" id="sidebar">
-    <h3>Halaman Admin</h3>
+    <h3>Halaman Guru</h3>
     <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Foto Admin">
-    <p>{{ $admin->nama_admin }}</p>
+    <p>{{ $guru->nama_guru }}</p>
 
     <hr>
 
@@ -25,11 +25,11 @@
 </a>
 
 <!-- ✅ Menu Barang -->
-<div class="menu-item has-submenu {{ request()->is('admin/barang*') ? 'active' : '' }}">
+<!-- <div class="menu-item has-submenu {{ request()->is('admin/barang*') ? 'active' : '' }}">
   <a href="#" class="menu-toggle">
     <i class="fas fa-box"></i> Barang
     <i class="fas fa-chevron-down submenu-icon"></i>
-  </a>
+  </a> -->
   <div class="submenu">
     <a href="{{ route('barang.create') }}" class="{{ request()->routeIs('barang.create') ? 'active' : '' }}">Tambah Barang</a>
     <a href="{{ route('barang.baru') }}" class="{{ request()->routeIs('barang.baru') ? 'active' : '' }}">Barang Baru</a>
@@ -41,16 +41,16 @@
 
 
 <!-- ✅ Menu Guru -->
-<div class="menu-item has-submenu {{ request()->routeIs('guru.*') ? 'active' : '' }}">
+<!-- <div class="menu-item has-submenu {{ request()->routeIs('guru.*') ? 'active' : '' }}">
   <a href="#" class="menu-toggle">
     <i class="fas fa-user"></i> Guru
     <i class="fas fa-chevron-down submenu-icon"></i>
-  </a>
-  <div class="submenu">
+  </a> -->
+  <!-- <div class="submenu">
     <a href="{{ route('guru.create') }}">Tambah Guru</a>
     <a href="{{ route('guru.index') }}">Daftar Guru</a>
   </div>
-</div>
+</div> -->
 
 
 
@@ -74,15 +74,15 @@
   <a href="{{ route('barang.stok') }}" style="text-decoration: none; flex: 1;">
     <div class="card red">
       <i class="fas fa-box"></i>
-      <div class="count">{{ $totalStok }}</div>
-      <div class="label">All Stok</div>
+      
+      <!-- <div class="label">All Stok</div> -->
     </div>
   </a>
 
   <a href="{{ route('barang.baru') }}" style="text-decoration: none; flex: 1;">
     <div class="card blue">
       <i class="fas fa-rotate-right"></i>
-      <div class="count">{{ $barangBaru }}</div>
+      
       <div class="label">Barang Baru</div>
     </div>
   </a>
