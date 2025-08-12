@@ -48,3 +48,9 @@ Route::post('/admin/update-profil', [App\Http\Controllers\DashboardController::c
     ->name('admin.update.profil');
 
 Route::post('/admin/update-profil', [DashboardController::class, 'updateProfil'])->name('admin.updateProfil');
+
+Route::post('/admin/update-profil', [DashboardController::class, 'updateProfil'])->name('admin.update.profil');
+
+// routes/web.php
+Route::post('/admin/update-profil', [AdminController::class, 'updateProfil'])
+    ->name('admin.updateProfil');

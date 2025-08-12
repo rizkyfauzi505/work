@@ -12,10 +12,13 @@ class BarangController extends Controller
     /**
      * ✅ Tampilkan Form Tambah Barang
      */
-    public function create()
-    {
-        return view('dashboard.barang.create');
-    }
+   public function create()
+{
+    $admin = session('admin'); // atau Auth::user() sesuai implementasi
+    // data lain...
+    return view('dashboard.barang.create', compact('admin', /* lainnya */));
+}
+
 
     /**
      * ✅ Simpan Barang ke Database
