@@ -3,17 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <title>Dashboard Admin</title>
+
+  <!-- FontAwesome untuk icon -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
   />
+
+  <!-- CSS Dashboard, sesuaikan pathnya -->
   <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}" />
+
   <style>
+    /* Transisi smooth untuk sidebar dan main content */
     body,
     .sidebar,
     .main {
       transition: all 0.4s ease-in-out;
     }
+
+    /* Styling foto profil sidebar */
     .profile-pic {
       cursor: pointer;
       border-radius: 50%;
@@ -21,30 +29,80 @@
       height: 80px;
       object-fit: cover;
     }
+
+    /* Submenu default sembunyi */
+    .menu-item .submenu {
+      display: none;
+      padding-left: 15px;
+    }
+
+    /* Tampilkan submenu jika menu-item active */
+    .menu-item.active .submenu {
+      display: block;
+    }
+
+    /* Styling link submenu */
+    .submenu a {
+      display: block;
+      padding: 8px 0;
+      color: #ffffffff;
+      text-decoration: none;
+      padding-left: 10px;
+    }
+    /* Link submenu aktif */
+    .submenu a.active {
+      font-weight: bold;
+      color: #3085d6;
+    }
+
+    /* Styling link sidebar */
+    .sidebar a {
+      display: block;
+      padding: 10px 15px;
+      color: #ffffffff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .sidebar a.active {
+      background-color: #3085d6;
+      color: white;
+    }
+
+    /* Icon panah submenu */
+    .submenu-icon {
+      float: right;
+      transition: transform 0.3s ease;
+    }
+    /* Rotasi icon saat submenu aktif */
+    .menu-item.active > a .submenu-icon {
+      transform: rotate(180deg);
+    }
   </style>
 </head>
 <body id="body">
   <div class="sidebar" id="sidebar">
     <h3>Halaman Admin</h3>
+
     <!-- Foto profil jadi tombol -->
     <img
       id="profileImageSidebar"
       src="{{ $admin->foto ? asset('storage/'.$admin->foto) : 'https://randomuser.me/api/portraits/men/75.jpg' }}"
       alt="Foto Admin"
-      style="cursor:pointer; border-radius:50%; width:80px; height:80px; object-fit:cover"
+      class="profile-pic"
     />
 
+    <!-- Nama admin -->
     <p>{{ $admin->nama_admin }}</p>
     <hr />
 
-    <!-- Dashboard -->
+    <!-- Link Dashboard -->
     <a
       href="{{ route('dashboard.admin') }}"
       class="{{ request()->routeIs('dashboard.admin') ? 'active' : '' }}"
       ><i class="fas fa-chart-line"></i> Dashboard</a
     >
 
-    <!-- Menu Barang -->
+    <!-- Menu Barang dengan submenu -->
     <div
       class="menu-item has-submenu {{ request()->is('admin/barang*') ? 'active' : '' }}"
     >
@@ -52,34 +110,48 @@
         <i class="fas fa-box"></i> Barang
         <i class="fas fa-chevron-down submenu-icon"></i>
       </a>
+
+      <!-- Submenu Barang -->
       <div class="submenu">
         <a
           href="{{ route('barang.create') }}"
-          class="{{ request()->routeIs('barang.create') ? 'active' : '' }}"
+          class="{{ request()->is('admin/barang/create') ? 'active' : '' }}"
           >Tambah Barang</a
         >
         <a
           href="{{ route('barang.baru') }}"
-          class="{{ request()->routeIs('barang.baru') ? 'active' : '' }}"
+          class="{{ request()->is('admin/barang/baru') ? 'active' : '' }}"
           >Barang Baru</a
         >
         <a
           href="{{ route('barang.stok') }}"
-          class="{{ request()->routeIs('barang.stok') ? 'active' : '' }}"
+          class="{{ request()->is('admin/barang/stok') ? 'active' : '' }}"
           >All Stok</a
         >
       </div>
     </div>
 
-    <!-- Menu Guru -->
-    <div class="menu-item has-submenu {{ request()->routeIs('guru.*') ? 'active' : '' }}">
+    <!-- Menu Guru dengan submenu -->
+    <div
+      class="menu-item has-submenu {{ request()->is('admin/guru*') ? 'active' : '' }}"
+    >
       <a href="#" class="menu-toggle">
         <i class="fas fa-user"></i> Guru
         <i class="fas fa-chevron-down submenu-icon"></i>
       </a>
+
+      <!-- Submenu Guru -->
       <div class="submenu">
-        <a href="{{ route('guru.create') }}">Tambah Guru</a>
-        <a href="{{ route('guru.index') }}">Daftar Guru</a>
+        <a
+          href="{{ route('guru.create') }}"
+          class="{{ request()->is('admin/guru/create') ? 'active' : '' }}"
+          >Tambah Guru</a
+        >
+        <a
+          href="{{ route('guru.index') }}"
+          class="{{ request()->is('admin/guru') ? 'active' : '' }}"
+          >Daftar Guru</a
+        >
       </div>
     </div>
 
@@ -87,12 +159,15 @@
     <a href="#" id="logoutButton"
       ><i class="fas fa-sign-out-alt"></i> Logout</a
     >
+    <!-- Form logout pakai POST agar aman -->
     <form
       id="logoutForm"
       action="{{ route('logout') }}"
-      method="GET"
+      method="POST"
       style="display: none"
-    ></form>
+    >
+      @csrf
+    </form>
   </div>
 
   <div class="main" id="main">
@@ -130,17 +205,18 @@
     </div>
   </div>
 
-  <!-- SweetAlert -->
+  <!-- SweetAlert untuk popup -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
-    // Sidebar toggle
+    // Toggle sidebar kecil/besar
     const menuToggle = document.getElementById("menuToggle");
     const body = document.getElementById("body");
     menuToggle.addEventListener("click", () => {
       body.classList.toggle("sidebar-collapsed");
     });
 
-    // Submenu toggle
+    // Toggle submenu saat klik menu-toggle (Barang, Guru, dll)
     const submenuToggles = document.querySelectorAll(".menu-toggle");
     submenuToggles.forEach((toggle) => {
       toggle.addEventListener("click", function (e) {
@@ -152,7 +228,7 @@
       });
     });
 
-    // SweetAlert Logout
+    // SweetAlert Logout confirmation
     document.getElementById("logoutButton").addEventListener("click", function (e) {
       e.preventDefault();
       Swal.fire({
@@ -255,7 +331,7 @@
                   showConfirmButton: false,
                   width: "auto",
                   background: "#000",
-                  backdrop: `rgba(0,0,0,0.9)`,
+                  backdrop: rgba(0,0,0,0.9),
                 });
               });
 
@@ -314,7 +390,7 @@
                         id="editProfileForm"
                         enctype="multipart/form-data"
                         method="POST"
-                        action="{{ route('admin.updateProfil') }}"
+                        action="{{ route('admin.update.profil') }}"
                       >
                         @csrf
                         <input

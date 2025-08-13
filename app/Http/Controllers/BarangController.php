@@ -12,13 +12,11 @@ class BarangController extends Controller
     /**
      * ✅ Tampilkan Form Tambah Barang
      */
-   public function create()
-{
-    $admin = session('admin'); // atau Auth::user() sesuai implementasi
-    // data lain...
-    return view('dashboard.barang.create', compact('admin', /* lainnya */));
-}
-
+    public function create()
+    {
+        $admin = session('admin'); // atau Auth::user()
+        return view('dashboard.barang.create', compact('admin'));
+    }
 
     /**
      * ✅ Simpan Barang ke Database
@@ -57,7 +55,9 @@ class BarangController extends Controller
                         ->orderBy('tanggal_pembelian', 'desc')
                         ->get();
 
-        return view('dashboard.barang.baru', compact('barang'));
+        $admin = session('admin');
+
+        return view('dashboard.barang.baru', compact('barang', 'admin'));
     }
 
     /**
@@ -73,8 +73,9 @@ class BarangController extends Controller
         }
 
         $barang = $query->get();
+        $admin = session('admin');
 
-        return view('dashboard.barang.stok', compact('barang'));
+        return view('dashboard.barang.stok', compact('barang', 'admin'));
     }
 
     /**
@@ -94,7 +95,9 @@ class BarangController extends Controller
     public function exportPDF()
     {
         $barang = Barang::all();
-        $pdf = Pdf::loadView('dashboard.barang.laporan', compact('barang'));
+        $admin = session('admin');
+
+        $pdf = Pdf::loadView('dashboard.barang.laporan', compact('barang', 'admin'));
         return $pdf->download('laporan-barang.pdf');
     }
 }

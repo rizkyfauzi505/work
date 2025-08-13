@@ -24,12 +24,7 @@
   <i class="fas fa-chart-line"></i> Dashboard
 </a>
 
-<!-- ✅ Menu Barang -->
-<!-- <div class="menu-item has-submenu {{ request()->is('admin/barang*') ? 'active' : '' }}">
-  <a href="#" class="menu-toggle">
-    <i class="fas fa-box"></i> Barang
-    <i class="fas fa-chevron-down submenu-icon"></i>
-  </a> -->
+
   <div class="submenu">
     <a href="{{ route('barang.create') }}" class="{{ request()->routeIs('barang.create') ? 'active' : '' }}">Tambah Barang</a>
     <a href="{{ route('barang.baru') }}" class="{{ request()->routeIs('barang.baru') ? 'active' : '' }}">Barang Baru</a>
