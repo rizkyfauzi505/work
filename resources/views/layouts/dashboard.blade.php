@@ -56,6 +56,30 @@
       </div>
     </div>
 
+        <!-- Menu Guru dengan submenu -->
+    <div
+      class="menu-item has-submenu {{ request()->is('admin/guru*') ? 'active' : '' }}"
+    >
+      <a href="#" class="menu-toggle">
+        <i class="fas fa-user"></i> Guru
+        <i class="fas fa-chevron-down submenu-icon"></i>
+      </a>
+
+      <!-- Submenu Guru -->
+      <div class="submenu">
+        <a
+          href="{{ route('guru.create') }}"
+          class="{{ request()->is('admin/guru/create') ? 'active' : '' }}"
+          >Tambah Guru</a
+        >
+        <a
+          href="{{ route('guru.index') }}"
+          class="{{ request()->is('admin/guru') ? 'active' : '' }}"
+          >Daftar Guru</a
+        >
+      </div>
+    </div>
+
     <!-- Logout -->
     <a href="#" id="logoutButton"><i class="fas fa-sign-out-alt"></i> Logout</a>
     <form id="logoutForm" action="{{ route('logout') }}" method="GET" style="display: none;"></form>

@@ -131,6 +131,21 @@
       </div>
     </div>
 
+        <!-- Menu Permintaan -->
+    <div class="menu-item has-submenu {{ request()->is('admin/permintaan*') ? 'active' : '' }}">
+      <a href="#" class="menu-toggle">
+        <i class="fas fa-clipboard-list"></i> Permintaan
+        <i class="fas fa-chevron-down submenu-icon"></i>
+      </a>
+      <div class="submenu">
+        {{-- Hanya link untuk lihat daftar permintaan --}}
+        <a href="{{ route('permintaan.index') }}" class="{{ request()->routeIs('permintaan.index') ? 'active' : '' }}">
+          Daftar Permintaan
+        </a>
+      </div>
+    </div>
+
+
     <!-- Menu Guru dengan submenu -->
     <div
       class="menu-item has-submenu {{ request()->is('admin/guru*') ? 'active' : '' }}"
