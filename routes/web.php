@@ -5,9 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\BarangController;
-use App\Http\Controllers\PermintaanController; // PENTING: jangan lupa import ini
-// Jika kamu pakai AdminController untuk update profil, import juga di sini:
-// use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PermintaanController;
 
 Route::get('/', function () {
     return redirect()->route('register');
@@ -18,8 +16,12 @@ Route::get('/', function () {
 // ==========================
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+
+// Logout pakai POST untuk keamanan
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -52,8 +54,6 @@ Route::get('/admin/barang/export/pdf', [BarangController::class, 'exportPDF'])->
 // ==========================
 // UPDATE PROFIL ADMIN
 // ==========================
-// ** HANYA SATU ROUTE untuk update profil **
-// Pakai DashboardController (sesuaikan jika kamu pakai AdminController)
 Route::post('/admin/update-profil', [DashboardController::class, 'updateProfil'])->name('admin.update.profil');
 
 // ==========================
