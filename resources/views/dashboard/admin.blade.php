@@ -477,7 +477,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       Swal.fire({
-        icon: "success",
+        icon: "succes",
         title: "Berhasil!",
         text: "{{ session('success') }}",
         confirmButtonColor: "#3085d6",
