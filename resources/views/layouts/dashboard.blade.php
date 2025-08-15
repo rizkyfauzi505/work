@@ -17,10 +17,10 @@
   <div class="sidebar" id="sidebar">
     <h3>Halaman Admin</h3>
     <img id="profileImageSidebar"
-      src="{{ $admin->foto ? asset('storage/'.$admin->foto) : 'https://randomuser.me/api/portraits/men/75.jpg' }}"
+      src="{{ isset($admin) && $admin->foto ? asset('storage/'.$admin->foto) : 'https://randomuser.me/api/portraits/men/75.jpg' }}"
       alt="Foto Admin" class="profile-pic">
 
-    <p>{{ $admin->nama_admin }}</p>
+    <p>{{ isset($admin) ? $admin->nama_admin : 'Admin' }}</p>
     <hr>
 
     <!-- Menu Dashboard -->
@@ -28,19 +28,18 @@
       <i class="fas fa-chart-line"></i> Dashboard
     </a>
 
-    <!-- Menu Barang -->
-  <!-- ✅ Menu Barang -->
-      <div class="menu-item has-submenu {{ request()->is('admin/barang*') ? 'active' : '' }}">
-        <a href="#" class="menu-toggle">
-          <i class="fas fa-box"></i> Barang
-          <i class="fas fa-chevron-down submenu-icon"></i>
-        </a>
-        <div class="submenu">
-          <a href="{{ route('barang.create') }}" class="{{ request()->routeIs('barang.create') ? 'active' : '' }}">Tambah Barang</a>
-          <a href="{{ route('barang.baru') }}" class="{{ request()->routeIs('barang.baru') ? 'active' : '' }}">Barang Baru</a>
-          <a href="{{ route('barang.stok') }}" class="{{ request()->routeIs('barang.stok') ? 'active' : '' }}">All Stok</a>
-        </div>
+    <!-- ✅ Menu Barang -->
+    <div class="menu-item has-submenu {{ request()->is('admin/barang*') ? 'active' : '' }}">
+      <a href="#" class="menu-toggle">
+        <i class="fas fa-box"></i> Barang
+        <i class="fas fa-chevron-down submenu-icon"></i>
+      </a>
+      <div class="submenu">
+        <a href="{{ route('barang.create') }}" class="{{ request()->routeIs('barang.create') ? 'active' : '' }}">Tambah Barang</a>
+        <a href="{{ route('barang.baru') }}" class="{{ request()->routeIs('barang.baru') ? 'active' : '' }}">Barang Baru</a>
+        <a href="{{ route('barang.stok') }}" class="{{ request()->routeIs('barang.stok') ? 'active' : '' }}">All Stok</a>
       </div>
+    </div>
 
     <!-- Menu Permintaan -->
     <div class="menu-item has-submenu {{ request()->is('admin/permintaan*') ? 'active' : '' }}">
@@ -49,34 +48,21 @@
         <i class="fas fa-chevron-down submenu-icon"></i>
       </a>
       <div class="submenu">
-        {{-- Hanya link untuk lihat daftar permintaan --}}
         <a href="{{ route('permintaan.index') }}" class="{{ request()->routeIs('permintaan.index') ? 'active' : '' }}">
           Daftar Permintaan
         </a>
       </div>
     </div>
 
-        <!-- Menu Guru dengan submenu -->
-    <div
-      class="menu-item has-submenu {{ request()->is('admin/guru*') ? 'active' : '' }}"
-    >
+    <!-- Menu Guru -->
+    <div class="menu-item has-submenu {{ request()->is('admin/guru*') ? 'active' : '' }}">
       <a href="#" class="menu-toggle">
         <i class="fas fa-user"></i> Guru
         <i class="fas fa-chevron-down submenu-icon"></i>
       </a>
-
-      <!-- Submenu Guru -->
       <div class="submenu">
-        <a
-          href="{{ route('guru.create') }}"
-          class="{{ request()->is('admin/guru/create') ? 'active' : '' }}"
-          >Tambah Guru</a
-        >
-        <a
-          href="{{ route('guru.index') }}"
-          class="{{ request()->is('admin/guru') ? 'active' : '' }}"
-          >Daftar Guru</a
-        >
+        <a href="{{ route('guru.create') }}" class="{{ request()->is('admin/guru/create') ? 'active' : '' }}">Tambah Guru</a>
+        <a href="{{ route('guru.index') }}" class="{{ request()->is('admin/guru') ? 'active' : '' }}">Daftar Guru</a>
       </div>
     </div>
 
@@ -134,7 +120,6 @@
     });
   </script>
   @endif
-  
 
 </body>
 </html>
