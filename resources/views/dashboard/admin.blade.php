@@ -210,7 +210,7 @@
         </div>
       </a>
 
-      <a href="#" style="text-decoration: none; flex: 1">
+      <a href="{{ route('permintaan.index') }}" style="text-decoration: none; flex: 1">
         <div class="card green">
           <i class="fas fa-file-alt"></i>
           <div class="count">0</div>
