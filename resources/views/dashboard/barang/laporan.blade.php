@@ -58,7 +58,7 @@
     <div class="kop">
         <h3>SMK MAHARDHIKA BATUJAJAR</h3>
         <p>Jl. Raya Batujajar No. 30 Cangkorah</p>
-        <p>Telp.</p>
+        <p>Telp. (022) 6868494</p>
         <hr style="border: 1px solid #000;">
     </div>
 
